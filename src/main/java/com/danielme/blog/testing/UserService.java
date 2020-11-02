@@ -11,7 +11,7 @@ public enum UserService {
             "Balin", "Dwalin", "Oin", "Gloin", "Fili", "Kili" };
 
     public List<String> getUsersByName(String name) {
-        List<String> res = new ArrayList<String>();
+        List<String> res = new ArrayList<>();
         if (name != null) {
             for (String user : users) {
                 if (user.toUpperCase().contains(name.toUpperCase())) {
