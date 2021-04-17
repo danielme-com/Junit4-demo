@@ -15,8 +15,9 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.build.java>1.8</project.build.java>
         <plugin.compiler.version>3.2</plugin.compiler.version>
-        <junit.version>4.13.1</junit.version>
-        <junitparams.version>1.0.5</junitparams.version>
+        <junit.version>4.13.2</junit.version>
+        <assertj.version>3.19.0</assertj.version>
+        <junitparams.version>1.1.1</junitparams.version>
         <log4j.version>1.2.9</log4j.version>
     </properties>
 
@@ -47,8 +48,7 @@
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
-            <!-- use 2.9.1 for Java 7 projects -->
-            <version>3.18.0</version>
+            <version>${assertj.version}</version>
             <scope>test</scope>
         </dependency>
 
