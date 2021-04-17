@@ -2,8 +2,8 @@ package com.danielme.blog.testing;
 
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
-import org.apache.log4j.Logger;
-import org.junit.*;
+import org.junit.Rule;
+import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.Timeout;
 import org.junit.runner.RunWith;
@@ -17,33 +17,11 @@ import static org.junit.Assert.*;
 @RunWith(JUnitParamsRunner.class)
 public class UserServiceTest {
 
-    private static final Logger logger = Logger.getLogger(UserServiceTest.class);
-
     @Rule
     public ExpectedException exception = ExpectedException.none();
 
     @Rule
     public Timeout timeout = Timeout.millis(5000);
-
-    @BeforeClass
-    public static void setUpClass() {
-        logger.info("");
-    }
-
-    @AfterClass
-    public static void tearDownClass() {
-        logger.info("");
-    }
-
-    @Before
-    public void setUpTest() {
-        logger.info("");
-    }
-
-    @After
-    public void tearDownTest() {
-        logger.info("");
-    }
 
     @Test
     public void testGetUsersByName() {
@@ -57,14 +35,17 @@ public class UserServiceTest {
     @Parameters({"oin, 2", "balin, 1", "gimli, 0"})
     public void testGetUsersByNameParameterised(String name, int result) {
         List<String> usersByName = UserService.INSTANCE.getUsersByName(name);
-        assertEquals(result, usersByName.size());
+        assertThat(usersByName)
+                .hasSize(result);
     }
 
     @Test
     public void testGetUsersByNameAssertJ() {
-        List<String> usersByName = UserService.INSTANCE.getUsersByName("oin");
+        UserService userService = UserService.INSTANCE;
+
+        List<String> usersByName = userService.getUsersByName("oin");
+
         assertThat(usersByName)
-                .hasSize(2)
                 .containsExactlyInAnyOrder("Gloin", "Oin");
     }
 
@@ -74,7 +55,8 @@ public class UserServiceTest {
             UserService.INSTANCE.getUserByPosition(-1);
             fail("Exception not thown");
         } catch (IndexOutOfBoundsException ex) {
-            assertEquals("-1", ex.getMessage());
+            assertThat(ex.getMessage())
+                    .contains("-1");
         }
     }
 
