@@ -1,29 +1,29 @@
 package com.danielme.blog.testing;
 
-import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public enum UserService {
 
     INSTANCE;
 
-    private final String[] users = { "Bombur", "Bofur", "Bifur", "Nori", "Ori", "Dori", "Thorin",
-            "Balin", "Dwalin", "Oin", "Gloin", "Fili", "Kili" };
+    private final List<String> users = Arrays.asList("Bombur", "Bofur", "Bifur", "Nori", "Ori", "Dori", "Thorin",
+            "Balin", "Dwalin", "Oin", "Gloin", "Fili", "Kili");
 
     public List<String> getUsersByName(String name) {
-        List<String> res = new ArrayList<>();
-        if (name != null) {
-            for (String user : users) {
-                if (user.toUpperCase().contains(name.toUpperCase())) {
-                    res.add(user);
-                }
-            }
+        if (name == null) {
+            return Collections.emptyList();
         }
-        return res;
+
+        return users.stream()
+                .filter(u -> u.toUpperCase().contains(name.toUpperCase()))
+                .collect(Collectors.toList());
     }
 
     public String getUserByPosition(int pos) {
-        return users[pos];
+        return users.get(pos);
     }
 
 }

@@ -1,6 +1,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0    	http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0    	http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.danielme.blog</groupId>
     <artifactId>testing</artifactId>
@@ -16,9 +16,9 @@
         <project.build.java>1.8</project.build.java>
         <plugin.compiler.version>3.2</plugin.compiler.version>
         <junit.version>4.13.2</junit.version>
-        <assertj.version>3.19.0</assertj.version>
+        <assertj.version>3.23.1</assertj.version>
         <junitparams.version>1.1.1</junitparams.version>
-        <log4j.version>1.2.9</log4j.version>
+        <log4j2.version>2.19.0</log4j2.version>
     </properties>
 
 
@@ -40,9 +40,15 @@
     <dependencies>
 
         <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>${log4j.version}</version>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>${log4j2.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>${log4j2.version}</version>
         </dependency>
 
         <dependency>

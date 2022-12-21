@@ -18,14 +18,28 @@ import static org.junit.Assert.*;
 public class UserServiceTest {
 
     @Rule
-    public ExpectedException exception = ExpectedException.none();
+    public ExpectedException exception = ExpectedException.none();//deprecated, use assertThrows
 
     @Rule
     public Timeout timeout = Timeout.millis(5000);
 
     @Test
-    public void testGetUsersByName() {
+    public void testGetUsersByNameWithFail() {
         List<String> usersByName = UserService.INSTANCE.getUsersByName("oin");
+
+        if (usersByName.size() != 2) {
+            fail("size must be 2");
+        } else if (!usersByName.contains("Gloin")) {
+            fail("Gloin not found!!");
+        } else if (!usersByName.contains("Oin")) {
+            fail("Oin not found!!");
+        }
+    }
+
+    @Test
+    public void testGetUsersByNameWithAssertion() {
+        List<String> usersByName = UserService.INSTANCE.getUsersByName("oin");
+
         assertEquals(2, usersByName.size());
         assertTrue("Gloin not found!!", usersByName.contains("Gloin"));
         assertTrue("Oin not found!!", usersByName.contains("Oin"));
@@ -35,15 +49,14 @@ public class UserServiceTest {
     @Parameters({"oin, 2", "balin, 1", "gimli, 0"})
     public void testGetUsersByNameParameterised(String name, int result) {
         List<String> usersByName = UserService.INSTANCE.getUsersByName(name);
+
         assertThat(usersByName)
                 .hasSize(result);
     }
 
     @Test
-    public void testGetUsersByNameAssertJ() {
-        UserService userService = UserService.INSTANCE;
-
-        List<String> usersByName = userService.getUsersByName("oin");
+    public void testGetUsersByNameWithAssertJ() {
+        List<String> usersByName = UserService.INSTANCE.getUsersByName("oin");
 
         assertThat(usersByName)
                 .containsExactlyInAnyOrder("Gloin", "Oin");
@@ -53,7 +66,7 @@ public class UserServiceTest {
     public void testGetUserByPositionExceptionFail() {
         try {
             UserService.INSTANCE.getUserByPosition(-1);
-            fail("Exception not thown");
+            fail("Exception not thrown");
         } catch (IndexOutOfBoundsException ex) {
             assertThat(ex.getMessage())
                     .contains("-1");
